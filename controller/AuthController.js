@@ -1,3 +1,5 @@
+const gem = require("./../utils/giveErrorMessage");
+
 const { sendToken } = require("../utils/sendToken");
 const User = require("./../models/userModel");
 const text = async (req, res, next) => {
@@ -17,7 +19,7 @@ const signIn = async (req, res, next) => {
 
     sendToken(user, 201, res);
   } catch (err) {
-    return res.status(500).json({ success: false, err });
+    return res.status(500).json({ success: false, err: gem(err) });
   }
 };
 
@@ -46,7 +48,7 @@ const Login = async (req, res, next) => {
     sendToken(user, 200, res);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ success: false, err });
+    return res.status(500).json({ success: false, err: gem(err) });
   }
 };
 const Logout = async (req, res, next) => {
