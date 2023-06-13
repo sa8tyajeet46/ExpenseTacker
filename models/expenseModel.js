@@ -19,6 +19,7 @@ const expenseSchema = new mongoose.Schema({
   incurred_on: {
     type: Date,
     default: Date.now,
+    required: "date is required",
   },
   notes: {
     type: String,

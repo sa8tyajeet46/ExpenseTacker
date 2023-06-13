@@ -14,7 +14,12 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cookieparser());
 app.use(compression());
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(errorMiddleware);
 app.use(authRouter);
 app.use(ExpenseRouter);
