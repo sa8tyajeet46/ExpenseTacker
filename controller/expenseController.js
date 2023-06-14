@@ -41,12 +41,23 @@ const editExpense = async (req, res, next) => {
       new: true,
       useFindAndModify: false,
     });
-    return res.status(200).json({ success: true, expense });
+    return res
+      .status(200)
+      .json({ success: true, expense, message: "Edited Successfully" });
   } catch (err) {
     return res.status(500).json({ success: false, err: gem(err) });
   }
 };
 
+const getExpense = async (req, res, next) => {
+  try {
+    let id = req.params.id;
+    const expense = await Expense.findById(id);
+    return res.status(200).json({ success: true, expense });
+  } catch (err) {
+    return res.status(500).json({ success: false, err: gem(err) });
+  }
+};
 const deleteExpense = async (req, res, next) => {
   try {
     let id = req.params.id;
@@ -109,13 +120,13 @@ const monthlyExpense = async (req, res, next) => {
         },
       },
     ]);
-    //console.log(currentPreview);
+    // console.log(currentPreview);
     let expensePreview = {
       month: currentPreview[0].month[0],
       today: currentPreview[0].today[0],
       yesterday: currentPreview[0].yesterday[0],
     };
-
+    //console.log(expensePreview);
     res.status(200).json({ success: true, expensePreview });
   } catch (err) {
     console.log(err);
@@ -280,5 +291,6 @@ module.exports = {
   expenseByCategory,
   plotExpenses,
   yearlyExpenses,
+  getExpense,
   averageCategories,
 };

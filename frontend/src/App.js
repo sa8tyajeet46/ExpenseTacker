@@ -10,6 +10,10 @@ import Sign from "./component/Sign";
 import AddExpense from "./component/AddExpense";
 import AllExpense from "./component/AllExpense";
 import EditExpense from "./component/EditExpense";
+import MonthlyReport from "./component/MonthlyReport";
+import GraphReport from "./component/GraphReport";
+import Yearlychat from "./component/Yearlychat";
+import PieChartExpense from "./component/PieChartExpense";
 
 function App() {
   const { user } = useSelector((state) => state);
@@ -39,12 +43,26 @@ function App() {
         ></Route>
         <Route
           path="/expense/:id"
+          element={user.auth ? <EditExpense></EditExpense> : <Login></Login>}
+        ></Route>
+        <Route
+          path="/expense/report/monthly"
           element={
-            user.auth ? (
-              <EditExpense></EditExpense>
-            ) : (
-              <EditExpense></EditExpense>
-            )
+            user.auth ? <MonthlyReport></MonthlyReport> : <Login></Login>
+          }
+        ></Route>
+        <Route
+          path="/expense/report/graph"
+          element={user.auth ? <GraphReport></GraphReport> : <Login></Login>}
+        ></Route>
+        <Route
+          path="/expense/report/yearPlot"
+          element={user.auth ? <Yearlychat></Yearlychat> : <Login></Login>}
+        ></Route>
+        <Route
+          path="/expense/report/piePlot"
+          element={
+            user.auth ? <PieChartExpense></PieChartExpense> : <Login></Login>
           }
         ></Route>
       </Routes>

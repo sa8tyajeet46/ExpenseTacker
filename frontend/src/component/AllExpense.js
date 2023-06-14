@@ -24,7 +24,7 @@ function AllExpense() {
   const handleSubmit = () => {
     dispatch(listExpenses(range.firstDay, range.lastDay));
   };
-  console.log(expenses, loading);
+
   return (
     <div className="mainContainer">
       <form className="formContainer">

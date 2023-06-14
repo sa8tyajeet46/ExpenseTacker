@@ -20,5 +20,8 @@ const expenseReducer = createReducer(initialState, {
   CLEARMESSAGE: (state, action) => {
     state.message = null;
   },
+  CLEARERROR: (state) => {
+    state.error = null;
+  },
 });
 export default expenseReducer;
