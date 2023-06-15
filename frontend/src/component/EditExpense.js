@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import getExpense from "../actions/nExpense";
 import editExpense from "../actions/editExpense";
 import { Snackbar, Alert } from "@mui/material";
 import deleteExpense from "../actions/deleteExpense";
-
+import Header from "./Header";
 function EditExpense() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function EditExpense() {
   };
   return (
     <div>
+      <Header></Header>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
         open={err.open}
@@ -65,29 +66,65 @@ function EditExpense() {
       >
         <Alert severity="success">{suc.msg}</Alert>
       </Snackbar>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          value={expense.title}
-          onChange={(e) => setExpense({ ...expense, title: e.target.value })}
-        ></input>
-        <input
-          value={expense.category}
-          onChange={(e) => setExpense({ ...expense, category: e.target.value })}
-        ></input>
-        <input
-          value={expense.notes}
-          onChange={(e) => setExpense({ ...expense, notes: e.target.value })}
-        ></input>
-        <input
-          value={expense.amount}
-          type="number"
-          onChange={(e) => setExpense({ ...expense, amount: e.target.value })}
-        ></input>
-        <Button type="submit">Edit</Button>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="w-full flex flex-col justify-center items-center py-5 space-y-10"
+      >
+        <div className="w-full flex justify-center space-x-4">
+          <TextField
+            value={expense.title}
+            onChange={(e) => setExpense({ ...expense, title: e.target.value })}
+            variant="standard"
+            focused
+            label="Title"
+            sx={{ width: "40%" }}
+          ></TextField>
+          <TextField
+            value={expense.category}
+            onChange={(e) =>
+              setExpense({ ...expense, category: e.target.value })
+            }
+            variant="standard"
+            focused
+            label="Category"
+            sx={{ width: "40%" }}
+          ></TextField>
+        </div>
+        <div className="w-full flex justify-center space-x-4">
+          <TextField
+            value={expense.notes}
+            onChange={(e) => setExpense({ ...expense, notes: e.target.value })}
+            variant="standard"
+            focused
+            label="Notes"
+            sx={{ width: "40%" }}
+          ></TextField>
+          <TextField
+            value={expense.amount}
+            type="number"
+            onChange={(e) => setExpense({ ...expense, amount: e.target.value })}
+            variant="standard"
+            focused
+            label="Amount"
+            sx={{ width: "40%" }}
+          ></TextField>
+        </div>
+        <div className="w-full flex justify-center space-x-4">
+          <button
+            disabled={loading}
+            type="submit"
+            className="flex justify-center items-center w-[40%] bg-green-700 text-gray-100 p-2 rounded-md"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDelete()}
+            className="flex justify-center items-center w-[40%] bg-red-700 text-gray-100 p-2 rounded-md"
+          >
+            Delete
+          </button>
+        </div>
       </form>
-      <Button disabled={loading} onClick={() => handleDelete()}>
-        Delete
-      </Button>
     </div>
   );
 }

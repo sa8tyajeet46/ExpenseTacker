@@ -11,6 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import { format } from "date-fns";
+import Header from "./Header";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import plotExpense from "../actions/plotExpense";
@@ -29,11 +30,15 @@ function GraphReport() {
   };
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <Header></Header>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="w-full p-5 flex justify-center items-center space-x-3"
+      >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label="First Day"
-            sx={{ width: "100%" }}
+            label="Month"
+            sx={{ width: "40%" }}
             views={["month", "year"]}
             onChange={(value) => {
               handleChange(value);
@@ -42,7 +47,12 @@ function GraphReport() {
           />
         </LocalizationProvider>
         <LocalizationProvider dateAdapter={AdapterDayjs}></LocalizationProvider>
-        <Button type="submit">Go</Button>
+        <button
+          type="submit"
+          className="bg-green-700 py-3 px-6 rounded-md text-white"
+        >
+          Go
+        </button>
       </form>
       {expense && (
         <VictoryChart

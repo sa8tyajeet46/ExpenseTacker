@@ -13,6 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { Button } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
+import Header from "./Header";
 import format from "date-fns/format";
 import yearlyPlot from "../actions/yearlyPlot";
 function Yearlychat() {
@@ -44,11 +45,15 @@ function Yearlychat() {
   return (
     <div>
       {" "}
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <Header></Header>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="w-full p-5 flex justify-center items-center space-x-3"
+      >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label="First Day"
-            sx={{ width: "100%" }}
+            label="Year"
+            sx={{ width: "40%" }}
             views={["year"]}
             onChange={(value) => {
               handleChange(value);
@@ -57,7 +62,12 @@ function Yearlychat() {
           />
         </LocalizationProvider>
         <LocalizationProvider dateAdapter={AdapterDayjs}></LocalizationProvider>
-        <Button type="submit">Go</Button>
+        <button
+          type="submit"
+          className="bg-green-700 py-3 px-6 rounded-md text-white"
+        >
+          Go
+        </button>
       </form>
       {expense && (
         <VictoryChart

@@ -9,7 +9,9 @@ import LogogoutIcon from "@mui/icons-material/Logout";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Snackbar, Alert } from "@mui/material";
+import Header from "./Header";
 import categoryExpense from "../actions/categoryExpense";
+import AverageExpenseCard from "./AverageExpenseCard";
 function Home() {
   const { error, message } = useSelector((state) => state.ed);
   const [err, setErr] = useState({ open: false, msg: "" });
@@ -35,6 +37,7 @@ function Home() {
   };
   return (
     <div>
+      <Header></Header>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
         open={err.open}
@@ -51,64 +54,12 @@ function Home() {
       >
         <Alert severity="success">{suc.msg}</Alert>
       </Snackbar>
-      <AppBar position="static" sx={{ backgroundColor: "#9c27b0" }}>
-        <Toolbar
-          variant="dense"
-          sx={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <Box>
-            <Typography variant="h5">Expense Tracker</Typography>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <Box
-              sx={{
-                width: 170,
-                backgroundColor: "white",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Link
-                to="/add/expense"
-                style={{ textDecoration: "none", display: "flex" }}
-              >
-                <Add sx={{ width: 35, color: "green" }}></Add>
-                <Typography color="green">ADD EXPENSE</Typography>
-              </Link>
-            </Box>
-
-            <Button sx={{ color: "#fff" }} onClick={(e) => handleLogout(e)}>
-              <LogogoutIcon></LogogoutIcon>Logout
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Link to="/all/expense">List Expenses</Link>
-      <Link to="/expense/report/monthly">Month Report</Link>
-      <Link to="/expense/report/graph">Graph Report</Link>
-      <Link to="/expense/report/yearPlot">Yearly plot</Link>
-      <Link to="/expense/report/piePlot">Pie plot</Link>
-
-      {expense &&
-        expense.map((list) => {
-          return (
-            <div>
-              <div>{list._id}</div>
-              <div>average - {list.mergedValues.average}</div>
-              <div>thisMonth - {list.mergedValues.total}</div>
-              {list.mergedValues.average - list.mergedValues.total >= 0 ? (
-                <div>
-                  saved {list.mergedValues.average - list.mergedValues.total}
-                </div>
-              ) : (
-                <div>
-                  Loss {list.mergedValues.average - list.mergedValues.total}
-                </div>
-              )}
-            </div>
-          );
-        })}
+      <div className="w-full flex flex-col items-center">
+        {expense &&
+          expense.map((list, i) => {
+            return <AverageExpenseCard {...list} key={i}></AverageExpenseCard>;
+          })}
+      </div>
     </div>
   );
 }

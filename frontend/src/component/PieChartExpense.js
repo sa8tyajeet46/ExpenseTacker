@@ -13,6 +13,7 @@ import {
 } from "victory";
 import { useDispatch, useSelector } from "react-redux";
 import piePlotExpense from "../actions/piePlotExpense";
+import Header from "./Header";
 function PieChartExpense() {
   const dispatch = useDispatch();
   const [range, setRange] = useState({ firstDay: null, lastDay: null });
@@ -34,11 +35,12 @@ function PieChartExpense() {
   };
   return (
     <div>
-      <form className="formContainer">
+      <Header></Header>
+      <form className="w-[80%] flex justify-evenly p-10 items-center">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="First Day"
-            sx={{ width: "100%" }}
+            sx={{ width: "40%" }}
             value={range.firstDay}
             onChange={(value) => {
               handleChange(value, 1);
@@ -49,7 +51,7 @@ function PieChartExpense() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Last Day"
-            sx={{ width: "100%" }}
+            sx={{ width: "40%" }}
             value={range.lastDay}
             onChange={(value) => {
               handleChange(value, 2);
@@ -57,7 +59,12 @@ function PieChartExpense() {
             focused
           />
         </LocalizationProvider>
-        <Button onClick={(e) => handleSubmit(e)}>Go</Button>
+        <button
+          onClick={(e) => handleSubmit(e)}
+          className="bg-green-600 text-gray-100 w-24 h-12 rounded-lg font-semibold"
+        >
+          Go
+        </button>
       </form>
       {expense && (
         <div style={{ width: 550, margin: "auto" }}>

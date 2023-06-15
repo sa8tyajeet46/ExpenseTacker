@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import addExpense from "../actions/addExpense";
 import { Snackbar, Alert } from "@mui/material";
+import Header from "./Header";
 function AddExpense() {
   const [expense, setExpense] = useState({
     title: "",
@@ -53,80 +54,86 @@ function AddExpense() {
     );
   };
   return (
-    <div className="mainDiv">
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
-        open={err.open}
-        autoHideDuration={5000}
-        onClose={() => setErr({ ...err, open: false })}
-      >
-        <Alert severity="error">{err.errmessage}</Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
-        open={msg.open}
-        autoHideDuration={5000}
-        onClose={() => setMsg({ ...msg, open: false })}
-      >
-        <Alert severity="success">{msg.message}</Alert>
-      </Snackbar>
-      <form onSubmit={(e) => handleSumbit(e)} className="container">
-        <h1 className="mlk">Add Expense</h1>
-        <TextField
-          type="text"
-          label="Category"
-          placeholder="Enter Category"
-          value={expense.category}
-          variant="standard"
-          fullWidth
-          focused
-          onChange={(e) => setExpense({ ...expense, category: e.target.value })}
-        ></TextField>
-        <TextField
-          type="text"
-          label="Title"
-          placeholder="Enter Title"
-          value={expense.title}
-          variant="standard"
-          fullWidth
-          focused
-          onChange={(e) => setExpense({ ...expense, title: e.target.value })}
-        ></TextField>
-        <TextField
-          type="text"
-          label="Notes"
-          placeholder="Enter Notes"
-          value={expense.notes}
-          variant="standard"
-          fullWidth
-          focused
-          onChange={(e) => setExpense({ ...expense, notes: e.target.value })}
-        ></TextField>
-        <TextField
-          type="Number"
-          label="Amount in Rs"
-          placeholder="Enter Amount"
-          value={expense.amount}
-          variant="standard"
-          fullWidth
-          focused
-          onChange={(e) => setExpense({ ...expense, amount: e.target.value })}
-        ></TextField>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Incurred on"
-            sx={{ width: "100%" }}
-            value={expense.incurred_on}
-            onChange={(value) => handleChange(value)}
+    <>
+      {" "}
+      <Header></Header>
+      <div className="mainDiv">
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
+          open={err.open}
+          autoHideDuration={5000}
+          onClose={() => setErr({ ...err, open: false })}
+        >
+          <Alert severity="error">{err.errmessage}</Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "horizontal" }}
+          open={msg.open}
+          autoHideDuration={5000}
+          onClose={() => setMsg({ ...msg, open: false })}
+        >
+          <Alert severity="success">{msg.message}</Alert>
+        </Snackbar>
+        <form onSubmit={(e) => handleSumbit(e)} className="container">
+          <h1 className="mlk">Add Expense</h1>
+          <TextField
+            type="text"
+            label="Category"
+            placeholder="Enter Category"
+            value={expense.category}
+            variant="standard"
+            fullWidth
             focused
-          />
-        </LocalizationProvider>
+            onChange={(e) =>
+              setExpense({ ...expense, category: e.target.value })
+            }
+          ></TextField>
+          <TextField
+            type="text"
+            label="Title"
+            placeholder="Enter Title"
+            value={expense.title}
+            variant="standard"
+            fullWidth
+            focused
+            onChange={(e) => setExpense({ ...expense, title: e.target.value })}
+          ></TextField>
+          <TextField
+            type="text"
+            label="Notes"
+            placeholder="Enter Notes"
+            value={expense.notes}
+            variant="standard"
+            fullWidth
+            focused
+            onChange={(e) => setExpense({ ...expense, notes: e.target.value })}
+          ></TextField>
+          <TextField
+            type="Number"
+            label="Amount in Rs"
+            placeholder="Enter Amount"
+            value={expense.amount}
+            variant="standard"
+            fullWidth
+            focused
+            onChange={(e) => setExpense({ ...expense, amount: e.target.value })}
+          ></TextField>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Incurred on"
+              sx={{ width: "100%" }}
+              value={expense.incurred_on}
+              onChange={(value) => handleChange(value)}
+              focused
+            />
+          </LocalizationProvider>
 
-        <Button variant="contained" type="submit" disabled={loading}>
-          submit
-        </Button>
-      </form>
-    </div>
+          <Button variant="contained" type="submit" disabled={loading}>
+            submit
+          </Button>
+        </form>
+      </div>
+    </>
   );
 }
 
