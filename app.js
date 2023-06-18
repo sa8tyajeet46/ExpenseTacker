@@ -21,7 +21,10 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.static(path.join(__dirname, "/frontend/build")));
+app.use(express.static(path.resolve(__dirname, "frontend", "build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
 app.use(errorMiddleware);
 app.use(authRouter);
 app.use(ExpenseRouter);
