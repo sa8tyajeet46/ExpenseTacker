@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const authRouter = require("./router/AuthRouter");
 const errorMiddleware = require("./Middleware/error");
 const ExpenseRouter = require("./router/ExpenseRouter");
+const path = require("path");
 
 const app = express();
 app.use(bodyparser.json());
@@ -20,6 +21,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.static(path.join(__dirname, "/frontend/build")));
 app.use(errorMiddleware);
 app.use(authRouter);
 app.use(ExpenseRouter);
