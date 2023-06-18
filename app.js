@@ -22,10 +22,11 @@ app.use(
   })
 );
 app.use(express.static(path.resolve(__dirname, "frontend", "build")));
-app.get("/*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-});
+//
 app.use(errorMiddleware);
 app.use(authRouter);
 app.use(ExpenseRouter);
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+});
 module.exports = app;
