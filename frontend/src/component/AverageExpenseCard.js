@@ -19,14 +19,21 @@ function AverageExpenseCard(list) {
         </div>
         <div className="w-1/3 ">
           {" "}
-          ₹{Number(list.mergedValues.total).toFixed(2)}
+          {list.mergedValues.total
+            ? `₹${Number(list.mergedValues.total).toFixed(2)}`
+            : `₹${Number(0).toFixed(2)}`}
         </div>
-        {list.mergedValues.average - list.mergedValues.total >= 0 ? (
+        {list.mergedValues.average - list.mergedValues.total ? (
+          list.mergedValues.total
+        ) : 0 >= 0 ? (
           <div className="w-1/3 text-green-700 f">
-            ₹
-            {Number(
+            {list.mergedValues.total
+              ? `₹
+            ${Number(
               list.mergedValues.average - list.mergedValues.total
-            ).toFixed(2)}
+            ).toFixed(2)}`
+              : `₹
+            ${Number(list.mergedValues.average).toFixed(2)}`}
           </div>
         ) : (
           <div className="w-1/3 text-red-700">
